@@ -9,7 +9,8 @@ dotenv.config();
 
 const app = fastify({ logger: true });
 app.register(fastifyStatic, {
-  root: path.join(__dirname, "../uploads"),
+  //root: path.join(__dirname, "../uploads"),
+  root: path.join(path.dirname(import.meta.url), "../uploads"),
   prefix: "/uploads/",
 });
 

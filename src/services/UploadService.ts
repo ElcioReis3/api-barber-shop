@@ -8,7 +8,8 @@ const pump = promisify(pipeline);
 const prisma = new PrismaClient();
 
 class UploadService {
-  private uploadDir = path.join(__dirname, "../../uploads");
+  //private uploadDir = path.join(__dirname, "../../uploads");
+  private uploadDir = path.join(path.dirname(import.meta.url), "../../uploads");
 
   constructor() {
     if (!fs.existsSync(this.uploadDir)) {
