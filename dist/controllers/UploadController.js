@@ -1,4 +1,4 @@
-import UploadService from "../services/UploadService";
+import UploadService from "../services/UploadService.js";
 class UploadController {
     async handle(request, reply) {
         try {

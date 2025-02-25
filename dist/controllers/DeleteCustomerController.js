@@ -1,4 +1,4 @@
-import { DeleteCustomerServices } from "../services/DeleteCustomerServices";
+import { DeleteCustomerServices } from "../services/DeleteCustomerServices.js";
 class DeleteCustomerController {
     async handle(request, reply) {
         const { id } = request.query;

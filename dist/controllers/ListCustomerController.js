@@ -1,4 +1,4 @@
-import { ListCustomerServices } from "../services/ListCustomerServices";
+import { ListCustomerServices } from "../services/ListCustomerServices.js";
 class ListCustomerController {
     async handle(request, reply) {
         const listCustomerServices = new ListCustomerServices();

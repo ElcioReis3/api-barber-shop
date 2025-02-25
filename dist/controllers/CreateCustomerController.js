@@ -1,4 +1,4 @@
-import { CreateCustomerServices } from "../services/CreateCustomerServices";
+import { CreateCustomerServices } from "../services/CreateCustomerServices.js";
 class CreateCustomerController {
     async handle(request, reply) {
         const { name, email, address, phone, password } = request.body;

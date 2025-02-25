@@ -1,4 +1,4 @@
-import prismaClient from "../prisma";
+import prismaClient from "../prisma/index.js";
 class UpdateCustomerServices {
     async execute({ id, name, email, address, phone, plan, password, status, dueDate, }) {
         if (!id) {

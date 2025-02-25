@@ -1,4 +1,4 @@
-import prismaClient from "../prisma";
+import prismaClient from "../prisma/index.js";
 class CreateCustomerServices {
     async execute({ name, email, address, phone, password, }) {
         if (!name || !email) {

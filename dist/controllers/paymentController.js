@@ -1,4 +1,4 @@
-import { createPaymentPreference } from "../services/paymentService";
+import { createPaymentPreference } from "../services/paymentService.js";
 export const checkout = async (req, res) => {
     try {
         const { title, quantity, price, description } = req.body;

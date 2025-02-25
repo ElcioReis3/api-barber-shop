@@ -1,10 +1,10 @@
-import { CreateCustomerController } from "./controllers/CreateCustomerController";
-import { ListCustomerController } from "./controllers/ListCustomerController";
-import { DeleteCustomerController } from "./controllers/DeleteCustomerController";
-import { UpdateCustomerController } from "./controllers/UpdateCustomerController";
-import { checkout } from "./controllers/paymentController";
-import { paymentValidController } from "./controllers/PaymentValidController";
-import { UploadController } from "./controllers/UploadController";
+import { CreateCustomerController } from "./controllers/CreateCustomerController.js";
+import { ListCustomerController } from "./controllers/ListCustomerController.js";
+import { DeleteCustomerController } from "./controllers/DeleteCustomerController.js";
+import { UpdateCustomerController } from "./controllers/UpdateCustomerController.js";
+import { checkout } from "./controllers/paymentController.js";
+import { paymentValidController } from "./controllers/PaymentValidController.js";
+import { UploadController } from "./controllers/UploadController.js";
 import { fastifyMultipart } from "@fastify/multipart";
 export async function routes(fastify, options) {
     fastify.register(fastifyMultipart, {

@@ -1,4 +1,4 @@
-import prismaClient from "../prisma";
+import prismaClient from "../prisma/index.js";
 
 interface UpdateCustomerProps {
   id: string;

@@ -1,4 +1,4 @@
-import { UpdateCustomerServices } from "../services/UpdateCustomerServices";
+import { UpdateCustomerServices } from "../services/UpdateCustomerServices.js";
 class UpdateCustomerController {
     async handle(request, reply) {
         const { id } = request.query;
