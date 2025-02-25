@@ -16,8 +16,9 @@ app.register(fastifyStatic, {
 const start = async () => {
     await app.register(cors);
     await app.register(routes);
+    const PORT = process.env.PORT || 3001;
     try {
-        await app.listen({ port: 3001 });
+        await app.listen({ port: Number(PORT), host: "0.0.0.0" });
         console.log("Servidor rodando em http://localhost:3001");
     }
     catch (err) {
