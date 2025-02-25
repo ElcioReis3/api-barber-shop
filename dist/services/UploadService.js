@@ -6,7 +6,8 @@ import { promisify } from "util";
 const pump = promisify(pipeline);
 const prisma = new PrismaClient();
 class UploadService {
-    uploadDir = path.join(__dirname, "../../uploads");
+    //private uploadDir = path.join(__dirname, "../../uploads");
+    uploadDir = path.join(path.dirname(import.meta.url), "../../uploads");
     constructor() {
         if (!fs.existsSync(this.uploadDir)) {
             fs.mkdirSync(this.uploadDir, { recursive: true });
