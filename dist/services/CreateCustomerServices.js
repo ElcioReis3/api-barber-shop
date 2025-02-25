@@ -1,0 +1,29 @@
+import prismaClient from "../prisma";
+class CreateCustomerServices {
+    async execute({ name, email, address, phone, password, }) {
+        if (!name || !email) {
+            throw new Error("Preencha todos os campos");
+        }
+        const emailExists = await prismaClient.customer.findUnique({
+            where: {
+                email,
+                phone,
+            },
+        });
+        if (emailExists) {
+            throw new Error("Email já cadastrado");
+        }
+        const customer = await prismaClient.customer.create({
+            data: {
+                name,
+                email,
+                address,
+                phone,
+                password,
+                status: false,
+            },
+        });
+        return customer;
+    }
+}
+export { CreateCustomerServices };
