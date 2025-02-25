@@ -2,7 +2,7 @@ import { MercadoPagoConfig } from "mercadopago";
 import { Preference } from "mercadopago";
 import { v4 as uuidv4 } from "uuid"; // Para gerar um ID único para cada preferência
 import { PrismaClient } from "@prisma/client";
-import { plans } from "../data/plan";
+import { plans } from "../data/plan.js";
 
 // Instanciando o Prisma Client
 const prisma = new PrismaClient();
