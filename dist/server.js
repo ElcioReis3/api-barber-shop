@@ -9,17 +9,20 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = fastify({ logger: true });
+// Configuração de arquivos estáticos (uploads de imagens, por exemplo)
 app.register(fastifyStatic, {
     root: path.join(__dirname, "../uploads"),
     prefix: "/uploads/",
 });
+// Configuração de CORS
+app.register(cors);
+// Registro das rotas
+app.register(routes);
+const PORT = process.env.PORT || 3001;
 const start = async () => {
-    await app.register(cors);
-    await app.register(routes);
-    const PORT = process.env.PORT || 3001;
     try {
         await app.listen({ port: Number(PORT), host: "0.0.0.0" });
-        console.log("Servidor rodando em http://localhost:3001");
+        console.log(`🚀 Servidor rodando na porta ${PORT}`);
     }
     catch (err) {
         console.error(err);
