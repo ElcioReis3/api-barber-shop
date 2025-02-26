@@ -48,6 +48,9 @@ export async function routes(
       return new ListCustomerController().handle(request, reply);
     }
   );
+  fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
+    return { status: "API is running" };
+  });
   fastify.delete(
     "/customer",
     async (request: FastifyRequest, reply: FastifyReply) => {
