@@ -16,15 +16,15 @@ app.register(fastifyStatic, {
 });
 
 // Configuração de CORS
-app.register(cors);
 
 // Registro das rotas
-app.register(routes);
-
 const start = async () => {
+  await app.register(routes);
+  await app.register(cors);
+  const PORT = process.env.PORT || 3001;
   try {
-    await app.listen({ port: 3001, host: "127.0.0.1" });
-    console.log(`🚀 Servidor rodando em http://127.0.0.1:3001`);
+    await app.listen({ port: Number(PORT), host: "127.0.0.1" });
+    console.log(`🚀 Servidor rodando em http://127.0.0.1:${PORT}`);
   } catch (err) {
     console.error(err);
     process.exit(1);

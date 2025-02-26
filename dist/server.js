@@ -17,13 +17,14 @@ app.register(static_1.default, {
     prefix: "/uploads/",
 });
 // Configuração de CORS
-app.register(cors_1.default);
 // Registro das rotas
-app.register(routes_1.routes);
 const start = async () => {
+    await app.register(routes_1.routes);
+    await app.register(cors_1.default);
+    const PORT = process.env.PORT || 3001;
     try {
-        await app.listen({ port: 3001, host: "127.0.0.1" });
-        console.log(`🚀 Servidor rodando em http://127.0.0.1:3001`);
+        await app.listen({ port: Number(PORT), host: "127.0.0.1" });
+        console.log(`🚀 Servidor rodando em http://127.0.0.1:${PORT}`);
     }
     catch (err) {
         console.error(err);
