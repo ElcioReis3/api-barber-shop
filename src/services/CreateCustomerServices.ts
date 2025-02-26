@@ -1,4 +1,5 @@
-import prismaClient from "../prisma/index";
+import prismaClient from "../prisma";
+import bcrypt from "bcrypt";
 
 interface CreateCustomerProps {
   name: string;
@@ -29,13 +30,16 @@ class CreateCustomerServices {
       throw new Error("Email já cadastrado");
     }
 
+    // Criptografa a senha antes de salvar
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 é o número de "salts" para o bcrypt
+
     const customer = await prismaClient.customer.create({
       data: {
         name,
         email,
         address,
         phone,
-        password,
+        password: hashedPassword,
         status: false,
       },
     });

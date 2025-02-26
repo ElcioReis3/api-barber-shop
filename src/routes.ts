@@ -13,6 +13,7 @@ import { paymentValidController } from "./controllers/PaymentValidController.js"
 
 import { UploadController } from "./controllers/UploadController.js";
 import { fastifyMultipart } from "@fastify/multipart";
+import { login } from "./controllers/AuthSigninController.js";
 
 interface Params {
   userId: string;
@@ -64,6 +65,7 @@ export async function routes(
     }
   );
   fastify.post("/plan/checkout", checkout);
+  fastify.post("/login", login);
   fastify.register(paymentValidController, { prefix: "/payments" });
   // Rota para upload de imagem
   fastify.put<{ Params: Params }>(

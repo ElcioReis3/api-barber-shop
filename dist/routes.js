@@ -9,6 +9,7 @@ const paymentController_js_1 = require("./controllers/paymentController.js");
 const PaymentValidController_js_1 = require("./controllers/PaymentValidController.js");
 const UploadController_js_1 = require("./controllers/UploadController.js");
 const multipart_1 = require("@fastify/multipart");
+const AuthSigninController_js_1 = require("./controllers/AuthSigninController.js");
 async function routes(fastify, options) {
     fastify.register(multipart_1.fastifyMultipart, {
         limits: {
@@ -36,6 +37,7 @@ async function routes(fastify, options) {
         return new UpdateCustomerController_js_1.UpdateCustomerController().handle(request, reply);
     });
     fastify.post("/plan/checkout", paymentController_js_1.checkout);
+    fastify.post("/login", AuthSigninController_js_1.login);
     fastify.register(PaymentValidController_js_1.paymentValidController, { prefix: "/payments" });
     // Rota para upload de imagem
     fastify.put("/customer/:userId/upload", async (request, reply) => {
