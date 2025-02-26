@@ -23,7 +23,7 @@ const start = async () => {
   await app.register(cors);
   const PORT = process.env.PORT || 3001;
   try {
-    await app.listen({ port: Number(PORT), host: "127.0.0.1" });
+    await app.listen({ port: Number(PORT), host: "0.0.0.0" });
     console.log(`🚀 Servidor rodando em http://127.0.0.1:${PORT}`);
   } catch (err) {
     console.error(err);
