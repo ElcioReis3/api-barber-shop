@@ -1,17 +1,20 @@
-import { MercadoPagoConfig } from "mercadopago";
-import { Preference } from "mercadopago";
-import { v4 as uuidv4 } from "uuid"; // Para gerar um ID único para cada preferência
-import { PrismaClient } from "@prisma/client";
-import { plans } from "../data/plan.js";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createPaymentPreference = void 0;
+const mercadopago_1 = require("mercadopago");
+const mercadopago_2 = require("mercadopago");
+const uuid_1 = require("uuid"); // Para gerar um ID único para cada preferência
+const client_1 = require("@prisma/client");
+const plan_1 = require("../data/plan");
 // Instanciando o Prisma Client
-const prisma = new PrismaClient();
-const mercadopago = new MercadoPagoConfig({
+const prisma = new client_1.PrismaClient();
+const mercadopago = new mercadopago_1.MercadoPagoConfig({
     accessToken: process.env.MP_ACCESS_TOKEN,
 });
-export const createPaymentPreference = async (title, quantity, price, description) => {
+const createPaymentPreference = async (title, quantity, price, description) => {
     try {
-        const paymentId = uuidv4();
-        const plan = plans.find((plan) => plan.title === title);
+        const paymentId = (0, uuid_1.v4)();
+        const plan = plan_1.plans.find((plan) => plan.title === title);
         if (!plan) {
             throw new Error("Plano não encontrado");
         }
@@ -37,7 +40,7 @@ export const createPaymentPreference = async (title, quantity, price, descriptio
             auto_return: "approved",
         };
         // Criar uma preferência de pagamento
-        const preference = new Preference(mercadopago);
+        const preference = new mercadopago_2.Preference(mercadopago);
         const response = await preference.create({ body: preferenceData }); // Passando os dados como body
         //return response.init_point;
         return response.sandbox_init_point; // A URL de pagamento
@@ -47,3 +50,4 @@ export const createPaymentPreference = async (title, quantity, price, descriptio
         throw new Error("Erro ao processar pagamento");
     }
 };
+exports.createPaymentPreference = createPaymentPreference;

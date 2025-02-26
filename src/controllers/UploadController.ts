@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import UploadService from "../services/UploadService.js";
+import UploadService from "../services/UploadService";
 
 interface Params {
   userId: string;

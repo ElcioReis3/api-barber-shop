@@ -1,6 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-export class PaymentValidService {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PaymentValidService = void 0;
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
+class PaymentValidService {
     async registerPayment(payment_id, status, user_id) {
         const existingPayment = await prisma.payment.findUnique({
             where: { payment_id },
@@ -45,3 +48,4 @@ export class PaymentValidService {
         });
     }
 }
+exports.PaymentValidService = PaymentValidService;

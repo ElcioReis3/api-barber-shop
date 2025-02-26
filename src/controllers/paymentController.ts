@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { createPaymentPreference } from "../services/paymentService.js";
-import { PaymentRequest } from "../interfaces/paymentRequest.js";
+import { createPaymentPreference } from "../services/paymentService";
+import { PaymentRequest } from "../interfaces/paymentRequest";
 
 export const checkout = async (
   req: FastifyRequest<{ Body: PaymentRequest }>,

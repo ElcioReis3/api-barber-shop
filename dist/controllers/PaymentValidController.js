@@ -1,7 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+exports.paymentValidController = paymentValidController;
+const client_1 = require("@prisma/client");
 // Instanciando o Prisma Client
-export const prisma = new PrismaClient();
-export async function paymentValidController(fastify) {
+exports.prisma = new client_1.PrismaClient();
+async function paymentValidController(fastify) {
     // 1️⃣ Salvar pagamento quando o Mercado Pago chamar o webhook
     fastify.post("/webhook", async (request, reply) => {
         const { payment_id, status, user_id } = request.body;
@@ -9,7 +13,7 @@ export async function paymentValidController(fastify) {
             return reply.status(400).send({ error: "Dados inválidos" });
         }
         // Salvar no banco, se ainda não existir
-        await prisma.payment.upsert({
+        await exports.prisma.payment.upsert({
             where: { payment_id },
             update: { status },
             create: {
@@ -25,7 +29,7 @@ export async function paymentValidController(fastify) {
     fastify.put("/activate/:payment_id", async (request, reply) => {
         const { payment_id } = request.params;
         // Buscar o pagamento no banco
-        const payment = await prisma.payment.findUnique({ where: { payment_id } });
+        const payment = await exports.prisma.payment.findUnique({ where: { payment_id } });
         if (!payment) {
             return reply.status(404).send({ error: "Pagamento não encontrado" });
         }
@@ -33,7 +37,7 @@ export async function paymentValidController(fastify) {
             return reply.status(400).send({ error: "Pagamento já foi utilizado" });
         }
         // Atualizar para "usado"
-        await prisma.payment.update({
+        await exports.prisma.payment.update({
             where: { payment_id },
             data: { used: true },
         });

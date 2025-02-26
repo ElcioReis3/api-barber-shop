@@ -1,10 +1,16 @@
-import prismaClient from "../prisma/index.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateCustomerServices = void 0;
+const prisma_1 = __importDefault(require("../prisma"));
 class UpdateCustomerServices {
     async execute({ id, name, email, address, phone, plan, password, status, dueDate, }) {
         if (!id) {
             throw new Error("ID do cliente é obrigatório");
         }
-        const customerExists = await prismaClient.customer.findUnique({
+        const customerExists = await prisma_1.default.customer.findUnique({
             where: {
                 id,
             },
@@ -13,7 +19,7 @@ class UpdateCustomerServices {
             throw new Error("Cliente não encontrado");
         }
         // Atualiza somente os campos enviados
-        const updatedCustomer = await prismaClient.customer.update({
+        const updatedCustomer = await prisma_1.default.customer.update({
             where: { id },
             data: {
                 name: name || customerExists.name,
@@ -29,4 +35,4 @@ class UpdateCustomerServices {
         return updatedCustomer;
     }
 }
-export { UpdateCustomerServices };
+exports.UpdateCustomerServices = UpdateCustomerServices;

@@ -1,28 +1,29 @@
-import fastify from "fastify";
-import cors from "@fastify/cors";
-import { routes } from "./routes.js";
-import dotenv from "dotenv";
-import fastifyStatic from "@fastify/static";
-import path from "path";
-import { fileURLToPath } from "url";
-dotenv.config();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const app = fastify({ logger: true });
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fastify_1 = __importDefault(require("fastify"));
+const cors_1 = __importDefault(require("@fastify/cors"));
+const routes_1 = require("./routes");
+const dotenv_1 = __importDefault(require("dotenv"));
+const static_1 = __importDefault(require("@fastify/static"));
+const path_1 = __importDefault(require("path"));
+dotenv_1.default.config();
+const app = (0, fastify_1.default)({ logger: true });
 // Configuração de arquivos estáticos (uploads de imagens, por exemplo)
-app.register(fastifyStatic, {
-    root: path.join(__dirname, "../uploads"),
+app.register(static_1.default, {
+    root: path_1.default.join(__dirname, "../uploads"),
     prefix: "/uploads/",
 });
 // Configuração de CORS
-app.register(cors);
+app.register(cors_1.default);
 // Registro das rotas
-app.register(routes);
-const PORT = process.env.PORT || 3001;
+app.register(routes_1.routes);
 const start = async () => {
     try {
-        await app.listen({ port: Number(PORT), host: "0.0.0.0" });
-        console.log(`🚀 Servidor rodando na porta ${PORT}`);
+        await app.listen({ port: 3001, host: "127.0.0.1" });
+        console.log(`🚀 Servidor rodando em http://127.0.0.1:3001`);
     }
     catch (err) {
         console.error(err);

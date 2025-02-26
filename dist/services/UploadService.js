@@ -1,16 +1,20 @@
-import { PrismaClient } from "@prisma/client";
-import fs from "fs";
-import path from "path";
-import { pipeline } from "stream";
-import { promisify } from "util";
-const pump = promisify(pipeline);
-const prisma = new PrismaClient();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const client_1 = require("@prisma/client");
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
+const stream_1 = require("stream");
+const util_1 = require("util");
+const pump = (0, util_1.promisify)(stream_1.pipeline);
+const prisma = new client_1.PrismaClient();
 class UploadService {
-    //private uploadDir = path.join(__dirname, "../../uploads");
-    uploadDir = path.join(path.dirname(import.meta.url), "../../uploads");
+    uploadDir = path_1.default.join(__dirname, "../../uploads");
     constructor() {
-        if (!fs.existsSync(this.uploadDir)) {
-            fs.mkdirSync(this.uploadDir, { recursive: true });
+        if (!fs_1.default.existsSync(this.uploadDir)) {
+            fs_1.default.mkdirSync(this.uploadDir, { recursive: true });
         }
     }
     async uploadImage(userId, data) {
@@ -23,17 +27,17 @@ class UploadService {
         }
         // Excluir a imagem anterior, se existir
         if (user.image) {
-            const oldImagePath = path.join(__dirname, "../../", user.image);
-            if (fs.existsSync(oldImagePath)) {
-                fs.unlinkSync(oldImagePath);
+            const oldImagePath = path_1.default.join(__dirname, "../../", user.image);
+            if (fs_1.default.existsSync(oldImagePath)) {
+                fs_1.default.unlinkSync(oldImagePath);
             }
         }
         // Criando um nome único para a nova imagem
         const newFileName = `${userId}-${Date.now()}-${data.filename}`;
-        const filePath = path.join(this.uploadDir, newFileName);
+        const filePath = path_1.default.join(this.uploadDir, newFileName);
         // Salvando a nova imagem na pasta uploads
         //await pump(data.file, fs.createWriteStream(filePath));
-        await pump(data.file, fs.createWriteStream(filePath)).catch((err) => {
+        await pump(data.file, fs_1.default.createWriteStream(filePath)).catch((err) => {
             throw new Error(`Erro ao gravar arquivo: ${err.message}`);
         });
         // Criando a URL para salvar no banco
@@ -46,4 +50,4 @@ class UploadService {
         return imageUrl;
     }
 }
-export default new UploadService();
+exports.default = new UploadService();

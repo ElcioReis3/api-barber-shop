@@ -1,10 +1,16 @@
-import prismaClient from "../prisma/index.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateCustomerServices = void 0;
+const index_1 = __importDefault(require("../prisma/index"));
 class CreateCustomerServices {
     async execute({ name, email, address, phone, password, }) {
         if (!name || !email) {
             throw new Error("Preencha todos os campos");
         }
-        const emailExists = await prismaClient.customer.findUnique({
+        const emailExists = await index_1.default.customer.findUnique({
             where: {
                 email,
                 phone,
@@ -13,7 +19,7 @@ class CreateCustomerServices {
         if (emailExists) {
             throw new Error("Email já cadastrado");
         }
-        const customer = await prismaClient.customer.create({
+        const customer = await index_1.default.customer.create({
             data: {
                 name,
                 email,
@@ -26,4 +32,4 @@ class CreateCustomerServices {
         return customer;
     }
 }
-export { CreateCustomerServices };
+exports.CreateCustomerServices = CreateCustomerServices;

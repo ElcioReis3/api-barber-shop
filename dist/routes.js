@@ -1,13 +1,16 @@
-import { CreateCustomerController } from "./controllers/CreateCustomerController.js";
-import { ListCustomerController } from "./controllers/ListCustomerController.js";
-import { DeleteCustomerController } from "./controllers/DeleteCustomerController.js";
-import { UpdateCustomerController } from "./controllers/UpdateCustomerController.js";
-import { checkout } from "./controllers/paymentController.js";
-import { paymentValidController } from "./controllers/PaymentValidController.js";
-import { UploadController } from "./controllers/UploadController.js";
-import { fastifyMultipart } from "@fastify/multipart";
-export async function routes(fastify, options) {
-    fastify.register(fastifyMultipart, {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routes = routes;
+const CreateCustomerController_js_1 = require("./controllers/CreateCustomerController.js");
+const ListCustomerController_js_1 = require("./controllers/ListCustomerController.js");
+const DeleteCustomerController_js_1 = require("./controllers/DeleteCustomerController.js");
+const UpdateCustomerController_js_1 = require("./controllers/UpdateCustomerController.js");
+const paymentController_js_1 = require("./controllers/paymentController.js");
+const PaymentValidController_js_1 = require("./controllers/PaymentValidController.js");
+const UploadController_js_1 = require("./controllers/UploadController.js");
+const multipart_1 = require("@fastify/multipart");
+async function routes(fastify, options) {
+    fastify.register(multipart_1.fastifyMultipart, {
         limits: {
             fileSize: 100 * 1024 * 1024, // 100MB
         },
@@ -18,21 +21,21 @@ export async function routes(fastify, options) {
         };
     });
     fastify.post("/customer", async (request, reply) => {
-        return new CreateCustomerController().handle(request, reply);
+        return new CreateCustomerController_js_1.CreateCustomerController().handle(request, reply);
     });
     fastify.get("/customers", async (request, reply) => {
-        return new ListCustomerController().handle(request, reply);
+        return new ListCustomerController_js_1.ListCustomerController().handle(request, reply);
     });
     fastify.delete("/customer", async (request, reply) => {
-        return new DeleteCustomerController().handle(request, reply);
+        return new DeleteCustomerController_js_1.DeleteCustomerController().handle(request, reply);
     });
     fastify.put("/customer", async (request, reply) => {
-        return new UpdateCustomerController().handle(request, reply);
+        return new UpdateCustomerController_js_1.UpdateCustomerController().handle(request, reply);
     });
-    fastify.post("/plan/checkout", checkout);
-    fastify.register(paymentValidController, { prefix: "/payments" });
+    fastify.post("/plan/checkout", paymentController_js_1.checkout);
+    fastify.register(PaymentValidController_js_1.paymentValidController, { prefix: "/payments" });
     // Rota para upload de imagem
     fastify.put("/customer/:userId/upload", async (request, reply) => {
-        return new UploadController().handle(request, reply);
+        return new UploadController_js_1.UploadController().handle(request, reply);
     });
 }

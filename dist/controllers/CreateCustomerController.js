@@ -1,8 +1,11 @@
-import { CreateCustomerServices } from "../services/CreateCustomerServices.js";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateCustomerController = void 0;
+const CreateCustomerServices_1 = require("../services/CreateCustomerServices");
 class CreateCustomerController {
     async handle(request, reply) {
         const { name, email, address, phone, password } = request.body;
-        const customerService = new CreateCustomerServices();
+        const customerService = new CreateCustomerServices_1.CreateCustomerServices();
         const customer = await customerService.execute({
             name,
             email,
@@ -13,4 +16,4 @@ class CreateCustomerController {
         reply.send(customer);
     }
 }
-export { CreateCustomerController };
+exports.CreateCustomerController = CreateCustomerController;

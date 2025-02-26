@@ -1,10 +1,16 @@
-import prismaClient from "../prisma/index.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeleteCustomerServices = void 0;
+const prisma_1 = __importDefault(require("../prisma"));
 class DeleteCustomerServices {
     async execute({ id }) {
         if (!id) {
             throw new Error("Solicitação inválida");
         }
-        const findCustomer = await prismaClient.customer.findFirst({
+        const findCustomer = await prisma_1.default.customer.findFirst({
             where: {
                 id: id,
             },
@@ -12,7 +18,7 @@ class DeleteCustomerServices {
         if (!findCustomer) {
             throw new Error("Cliente não existe");
         }
-        await prismaClient.customer.delete({
+        await prisma_1.default.customer.delete({
             where: {
                 id: findCustomer.id,
             },
@@ -20,4 +26,4 @@ class DeleteCustomerServices {
         return { message: "Deletado com sucesso!" };
     }
 }
-export { DeleteCustomerServices };
+exports.DeleteCustomerServices = DeleteCustomerServices;

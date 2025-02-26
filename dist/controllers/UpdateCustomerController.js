@@ -1,9 +1,12 @@
-import { UpdateCustomerServices } from "../services/UpdateCustomerServices.js";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateCustomerController = void 0;
+const UpdateCustomerServices_1 = require("../services/UpdateCustomerServices");
 class UpdateCustomerController {
     async handle(request, reply) {
         const { id } = request.query;
         const { name, email, address, phone, password, status, dueDate, plan } = request.body;
-        const customerService = new UpdateCustomerServices();
+        const customerService = new UpdateCustomerServices_1.UpdateCustomerServices();
         try {
             const updatedCustomer = await customerService.execute({
                 id,
@@ -23,4 +26,4 @@ class UpdateCustomerController {
         }
     }
 }
-export { UpdateCustomerController };
+exports.UpdateCustomerController = UpdateCustomerController;
