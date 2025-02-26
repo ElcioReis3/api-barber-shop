@@ -40,9 +40,12 @@ export const createPaymentPreference = async (
         },
       ],
       back_urls: {
-        success: "http://localhost:3000/payment-success",
-        failure: "http://localhost:3000/payment-failure",
-        pending: "http://localhost:3000/payment-pending",
+        success:
+          "https://marcos-vinicius-barbearia.netlify.app/payment-success",
+        failure:
+          "https://marcos-vinicius-barbearia.netlify.app/payment-failure",
+        pending:
+          "https://marcos-vinicius-barbearia.netlify.app/payment-pending",
       },
       auto_return: "approved",
     };
