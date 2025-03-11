@@ -14,6 +14,8 @@ import { paymentValidController } from "./controllers/PaymentValidController.js"
 import { UploadController } from "./controllers/UploadController.js";
 import { fastifyMultipart } from "@fastify/multipart";
 import { login } from "./controllers/AuthSigninController.js";
+import { forgotPassword } from "./controllers/authEmailController.js";
+import { resetPassword } from "./controllers/resetPasswordController.js";
 
 interface Params {
   userId: string;
@@ -73,5 +75,10 @@ export async function routes(
     async (request, reply) => {
       return new UploadController().handle(request, reply);
     }
+  );
+  fastify.post<{ Body: { email: string } }>("/forgot-password", forgotPassword);
+  fastify.post<{ Body: { token: string; password: string } }>(
+    "/reset-password",
+    resetPassword
   );
 }
