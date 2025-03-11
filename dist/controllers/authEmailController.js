@@ -17,11 +17,12 @@ const forgotPassword = async (request, reply) => {
             });
         }
         const resetToken = jsonwebtoken_1.default.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        console.log("JWT_SECRET:", process.env.JWT_SECRET);
         await prisma_1.default.customer.update({
             where: { email },
             data: {
                 resetPasswordToken: resetToken,
-                resetPasswordExpires: new Date(Date.now() + 3600000),
+                resetPasswordExpires: new Date(Date.now() + 3600 * 1000),
             },
         });
         await (0, authEmailService_1.sendPasswordResetEmail)(email, resetToken);

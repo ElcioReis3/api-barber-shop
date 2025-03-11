@@ -29,12 +29,13 @@ export const forgotPassword = async (
       process.env.JWT_SECRET as string,
       { expiresIn: "1h" }
     );
+    console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
     await prisma.customer.update({
       where: { email },
       data: {
         resetPasswordToken: resetToken,
-        resetPasswordExpires: new Date(Date.now() + 3600000),
+        resetPasswordExpires: new Date(Date.now() + 3600 * 1000),
       },
     });
 
