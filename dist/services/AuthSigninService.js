@@ -12,12 +12,6 @@ const authenticateUser = async (email, password) => {
     if (!user)
         throw new Error("Usuário não encontrado");
     const isPasswordValid = await bcrypt_1.default.compare(password, user.password);
-    console.log({
-        email,
-        password,
-        userPassword: user.password,
-        isPasswordValid,
-    });
     if (!isPasswordValid)
         throw new Error("Senha incorreta");
     return user;

@@ -17,7 +17,7 @@ const sendPasswordResetEmail = async (email, resetToken) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Redefinição de Senha",
-        text: `Clique no link para redefinir sua senha: ${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`,
+        text: `Clique no link para redefinir sua senha: ${process.env.FRONTEND_URL}/auth/reset-password?token=${resetToken}`,
     };
     await transporter.sendMail(mailOptions);
 };

@@ -11,6 +11,7 @@ const UploadController_js_1 = require("./controllers/UploadController.js");
 const multipart_1 = require("@fastify/multipart");
 const AuthSigninController_js_1 = require("./controllers/AuthSigninController.js");
 const authEmailController_js_1 = require("./controllers/authEmailController.js");
+const resetPasswordController_js_1 = require("./controllers/resetPasswordController.js");
 async function routes(fastify, options) {
     fastify.register(multipart_1.fastifyMultipart, {
         limits: {
@@ -45,5 +46,5 @@ async function routes(fastify, options) {
         return new UploadController_js_1.UploadController().handle(request, reply);
     });
     fastify.post("/forgot-password", authEmailController_js_1.forgotPassword);
-    fastify.post("/reset-password", resetPassword);
+    fastify.post("/reset-password", resetPasswordController_js_1.resetPassword);
 }
