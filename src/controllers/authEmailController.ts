@@ -14,7 +14,6 @@ export const forgotPassword = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { email } = request.body;
-  console.log("Email recebido do front end " + email);
   try {
     const user = await prisma.customer.findUnique({ where: { email } });
 
@@ -40,7 +39,6 @@ export const forgotPassword = async (
     });
 
     await sendPasswordResetEmail(email, resetToken);
-
     reply.send({ message: "E-mail de recuperação enviado com sucesso!" });
   } catch (error) {
     console.error("Erro ao processar a solicitação. " + error);

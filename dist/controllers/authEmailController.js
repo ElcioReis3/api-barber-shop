@@ -9,7 +9,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authEmailService_1 = require("../services/authEmailService");
 const forgotPassword = async (request, reply) => {
     const { email } = request.body;
-    console.log("Email recebido do front end " + email);
     try {
         const user = await prisma_1.default.customer.findUnique({ where: { email } });
         if (!user) {

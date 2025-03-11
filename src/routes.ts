@@ -76,7 +76,7 @@ export async function routes(
       return new UploadController().handle(request, reply);
     }
   );
-  fastify.post<{ Body: { email: string } }>("/forgot-password", forgotPassword);
+  fastify.post<{ Body: { email: string } }>("/forgotpassword", forgotPassword);
   fastify.post<{ Body: { token: string; password: string } }>(
     "/reset-password",
     resetPassword

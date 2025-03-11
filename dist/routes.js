@@ -45,6 +45,6 @@ async function routes(fastify, options) {
     fastify.put("/customer/:userId/upload", async (request, reply) => {
         return new UploadController_js_1.UploadController().handle(request, reply);
     });
-    fastify.post("/forgot-password", authEmailController_js_1.forgotPassword);
+    fastify.post("/forgotpassword", authEmailController_js_1.forgotPassword);
     fastify.post("/reset-password", resetPasswordController_js_1.resetPassword);
 }
