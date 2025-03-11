@@ -13,7 +13,7 @@ const forgotPassword = async (request, reply) => {
         const user = await prisma_1.default.customer.findUnique({ where: { email } });
         if (!user) {
             return reply.send({
-                message: "Se esse e-mail estiver cadastrado, você receberá instruções para redefinir a senha.",
+                message: "E-mail de recuperação enviado com sucesso!",
             });
         }
         const resetToken = jsonwebtoken_1.default.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });

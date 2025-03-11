@@ -19,8 +19,7 @@ export const forgotPassword = async (
 
     if (!user) {
       return reply.send({
-        message:
-          "Se esse e-mail estiver cadastrado, você receberá instruções para redefinir a senha.",
+        message: "E-mail de recuperação enviado com sucesso!",
       });
     }
 
