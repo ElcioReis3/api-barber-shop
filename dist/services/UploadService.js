@@ -1,48 +1,112 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+/* import { PrismaClient } from "@prisma/client";
+import { v2 as cloudinary } from "cloudinary";
+import { FastifyRequest } from "fastify";
+import { pipeline } from "stream";
+import { promisify } from "util";
+
+const pump = promisify(pipeline);
+const prisma = new PrismaClient();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+interface UploadData {
+  file: NodeJS.ReadableStream;
+  filename: string;
+}
+
+class UploadService {
+  async uploadImage(userId: string, data: UploadData): Promise<string> {
+    const user = await prisma.customer.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new Error("Usuário não encontrado");
+    }
+
+    if (user.image) {
+      const publicId = user.image.split("/").pop()?.split(".")[0];
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId);
+      }
+    }
+
+    const uploadResult = await new Promise<{ secure_url: string }>(
+      (resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: "uploads" },
+          (error, result) => {
+            if (error || !result) {
+              return reject(
+                error || new Error("Erro no upload para o Cloudinary")
+              );
+            }
+            resolve(result);
+          }
+        );
+
+        data.file.pipe(uploadStream);
+      }
+    );
+
+    const imageUrl = uploadResult.secure_url;
+
+    await prisma.customer.update({
+      where: { id: userId },
+      data: { image: imageUrl },
+    });
+
+    return imageUrl;
+  }
+}
+
+export default new UploadService();
+ */
 const client_1 = require("@prisma/client");
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
+const cloudinary_1 = require("cloudinary");
 const stream_1 = require("stream");
 const util_1 = require("util");
 const pump = (0, util_1.promisify)(stream_1.pipeline);
 const prisma = new client_1.PrismaClient();
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 class UploadService {
-    uploadDir = path_1.default.join(__dirname, "../../uploads");
-    constructor() {
-        if (!fs_1.default.existsSync(this.uploadDir)) {
-            fs_1.default.mkdirSync(this.uploadDir, { recursive: true });
-        }
-    }
     async uploadImage(userId, data) {
-        // Verifica se o usuário existe no banco
         const user = await prisma.customer.findUnique({
             where: { id: userId },
         });
         if (!user) {
             throw new Error("Usuário não encontrado");
         }
-        // Excluir a imagem anterior, se existir
         if (user.image) {
-            const oldImagePath = path_1.default.join(__dirname, "../../", user.image);
-            if (fs_1.default.existsSync(oldImagePath)) {
-                fs_1.default.unlinkSync(oldImagePath);
+            const publicId = user.image
+                .split("/")
+                .slice(-2)
+                .join("/") // Pega a pasta e o nome do arquivo sem a URL completa
+                .split(".")[0]; // Remove a extensão
+            if (publicId) {
+                await cloudinary_1.v2.uploader.destroy(publicId);
             }
         }
-        // Criando um nome único para a nova imagem
-        const newFileName = `${userId}-${Date.now()}-${data.filename}`;
-        const filePath = path_1.default.join(this.uploadDir, newFileName);
-        // Salvando a nova imagem na pasta uploads
-        //await pump(data.file, fs.createWriteStream(filePath));
-        await pump(data.file, fs_1.default.createWriteStream(filePath)).catch((err) => {
-            throw new Error(`Erro ao gravar arquivo: ${err.message}`);
+        const uploadResult = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary_1.v2.uploader.upload_stream({ folder: "uploads" }, (error, result) => {
+                if (error || !result) {
+                    return reject(error || new Error("Erro no upload para o Cloudinary"));
+                }
+                resolve(result);
+            });
+            data.file.pipe(uploadStream);
         });
-        // Criando a URL para salvar no banco
-        const imageUrl = `/uploads/${newFileName}`;
-        // Atualizando o usuário no banco de dados
+        const imageUrl = uploadResult.secure_url;
         await prisma.customer.update({
             where: { id: userId },
             data: { image: imageUrl },
