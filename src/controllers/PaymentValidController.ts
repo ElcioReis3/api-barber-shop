@@ -28,6 +28,12 @@ export async function paymentValidController(fastify: FastifyInstance) {
         used: false,
       },
     });
+    if (status === "approved") {
+      await prisma.customer.update({
+        where: { id: user_id },
+        data: { subscriptionDate: new Date() },
+      });
+    }
 
     return reply.send({ message: "Pagamento registrado" });
   });

@@ -23,6 +23,12 @@ async function paymentValidController(fastify) {
                 used: false,
             },
         });
+        if (status === "approved") {
+            await exports.prisma.customer.update({
+                where: { id: user_id },
+                data: { subscriptionDate: new Date() },
+            });
+        }
         return reply.send({ message: "Pagamento registrado" });
     });
     // 2️⃣ Atualizar pagamento para "usado" quando o plano for ativado
