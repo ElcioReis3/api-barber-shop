@@ -24,12 +24,12 @@ model Customer {
   role Role @default(USER)
   image String?
   plan String?
-  subscriptionDate DateTime?
   dueDate DateTime?
   create_at DateTime? @default(now())
   update_at DateTime? @updatedAt
   resetPasswordToken String?  
   resetPasswordExpires DateTime? 
+  subscriptionDate DateTime?
 
   @@map("customers")
 }
