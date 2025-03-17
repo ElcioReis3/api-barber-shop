@@ -10,6 +10,7 @@ interface UpdateCustomerProps {
   password?: string;
   status?: boolean;
   dueDate?: string;
+  subscriptionDate?: string;
 }
 
 class UpdateCustomerServices {
@@ -23,6 +24,7 @@ class UpdateCustomerServices {
     password,
     status,
     dueDate,
+    subscriptionDate,
   }: UpdateCustomerProps) {
     if (!id) {
       throw new Error("ID do cliente é obrigatório");
@@ -49,6 +51,7 @@ class UpdateCustomerServices {
         password: password || customerExists.password,
         status: status !== undefined ? status : customerExists.status,
         dueDate: dueDate || customerExists.dueDate,
+        subscriptionDate: customerExists.subscriptionDate,
       },
     });
 

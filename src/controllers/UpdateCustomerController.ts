@@ -4,17 +4,27 @@ import { UpdateCustomerServices } from "../services/UpdateCustomerServices";
 class UpdateCustomerController {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.query as { id: string };
-    const { name, email, address, phone, password, status, dueDate, plan } =
-      request.body as {
-        name?: string;
-        email?: string;
-        address?: string;
-        phone?: string;
-        plan?: string;
-        password?: string;
-        status?: boolean;
-        dueDate?: string;
-      };
+    const {
+      name,
+      email,
+      address,
+      phone,
+      password,
+      status,
+      dueDate,
+      plan,
+      subscriptionDate,
+    } = request.body as {
+      name?: string;
+      email?: string;
+      address?: string;
+      phone?: string;
+      plan?: string;
+      password?: string;
+      status?: boolean;
+      dueDate?: string;
+      subscriptionDate?: string;
+    };
 
     const customerService = new UpdateCustomerServices();
 
@@ -29,6 +39,7 @@ class UpdateCustomerController {
         password,
         status,
         dueDate,
+        subscriptionDate,
       });
 
       return reply.status(200).send(updatedCustomer);

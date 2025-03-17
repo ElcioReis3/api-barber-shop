@@ -5,7 +5,7 @@ const UpdateCustomerServices_1 = require("../services/UpdateCustomerServices");
 class UpdateCustomerController {
     async handle(request, reply) {
         const { id } = request.query;
-        const { name, email, address, phone, password, status, dueDate, plan } = request.body;
+        const { name, email, address, phone, password, status, dueDate, plan, subscriptionDate, } = request.body;
         const customerService = new UpdateCustomerServices_1.UpdateCustomerServices();
         try {
             const updatedCustomer = await customerService.execute({
@@ -18,6 +18,7 @@ class UpdateCustomerController {
                 password,
                 status,
                 dueDate,
+                subscriptionDate,
             });
             return reply.status(200).send(updatedCustomer);
         }

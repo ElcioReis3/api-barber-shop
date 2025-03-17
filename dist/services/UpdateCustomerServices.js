@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateCustomerServices = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
 class UpdateCustomerServices {
-    async execute({ id, name, email, address, phone, plan, password, status, dueDate, }) {
+    async execute({ id, name, email, address, phone, plan, password, status, dueDate, subscriptionDate, }) {
         if (!id) {
             throw new Error("ID do cliente é obrigatório");
         }
@@ -30,6 +30,7 @@ class UpdateCustomerServices {
                 password: password || customerExists.password,
                 status: status !== undefined ? status : customerExists.status,
                 dueDate: dueDate || customerExists.dueDate,
+                subscriptionDate: customerExists.subscriptionDate,
             },
         });
         return updatedCustomer;
