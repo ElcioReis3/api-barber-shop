@@ -30,7 +30,7 @@ class UpdateCustomerServices {
                 password: password || customerExists.password,
                 status: status !== undefined ? status : customerExists.status,
                 dueDate: dueDate || customerExists.dueDate,
-                subscriptionDate: customerExists.subscriptionDate,
+                subscriptionDate: subscriptionDate || customerExists.subscriptionDate,
             },
         });
         return updatedCustomer;
