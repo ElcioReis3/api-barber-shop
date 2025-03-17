@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { PrismaClient } from "@prisma/client";
+import { processRefund } from "../services/refundService";
 
 // Instanciando o Prisma Client
 export const prisma = new PrismaClient();

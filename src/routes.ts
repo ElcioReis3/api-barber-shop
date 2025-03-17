@@ -16,10 +16,14 @@ import { fastifyMultipart } from "@fastify/multipart";
 import { login } from "./controllers/AuthSigninController.js";
 import { forgotPassword } from "./controllers/authEmailController.js";
 import { resetPassword } from "./controllers/resetPasswordController.js";
+import { PrismaClient } from "@prisma/client";
+import { processRefund } from "./services/refundService.js";
+import { CancelPaymentController } from "./controllers/CancelPaymentController.js";
 
 interface Params {
   userId: string;
 }
+export const prisma = new PrismaClient();
 
 export async function routes(
   fastify: FastifyInstance,
@@ -81,4 +85,7 @@ export async function routes(
     "/reset-password",
     resetPassword
   );
+  fastify.post("/cancel-subscription", async (request, reply) => {
+    return new CancelPaymentController().handle(request, reply);
+  });
 }

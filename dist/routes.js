@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
 exports.routes = routes;
 const CreateCustomerController_js_1 = require("./controllers/CreateCustomerController.js");
 const ListCustomerController_js_1 = require("./controllers/ListCustomerController.js");
@@ -12,6 +13,9 @@ const multipart_1 = require("@fastify/multipart");
 const AuthSigninController_js_1 = require("./controllers/AuthSigninController.js");
 const authEmailController_js_1 = require("./controllers/authEmailController.js");
 const resetPasswordController_js_1 = require("./controllers/resetPasswordController.js");
+const client_1 = require("@prisma/client");
+const CancelPaymentController_js_1 = require("./controllers/CancelPaymentController.js");
+exports.prisma = new client_1.PrismaClient();
 async function routes(fastify, options) {
     fastify.register(multipart_1.fastifyMultipart, {
         limits: {
@@ -47,4 +51,7 @@ async function routes(fastify, options) {
     });
     fastify.post("/forgotpassword", authEmailController_js_1.forgotPassword);
     fastify.post("/reset-password", resetPasswordController_js_1.resetPassword);
+    fastify.post("/cancel-subscription", async (request, reply) => {
+        return new CancelPaymentController_js_1.CancelPaymentController().handle(request, reply);
+    });
 }
