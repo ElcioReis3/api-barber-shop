@@ -38,7 +38,7 @@ class CancelPaymentController {
             refundType = null; // Nenhum reembolso após 15 dias
         }
         if (refundType === null) {
-            return reply.status(400).send({ error: "Nenhum reembolso disponível" });
+            return reply.status(400).send({ error: "Nenhum reembolso disponível " });
         }
         // Buscar o pagamento associado ao usuário
         const payment = await routes_1.prisma.payment.findFirst({

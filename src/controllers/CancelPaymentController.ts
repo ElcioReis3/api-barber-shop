@@ -43,7 +43,7 @@ export class CancelPaymentController {
     }
 
     if (refundType === null) {
-      return reply.status(400).send({ error: "Nenhum reembolso disponível" });
+      return reply.status(400).send({ error: "Nenhum reembolso disponível " });
     }
 
     // Buscar o pagamento associado ao usuário
