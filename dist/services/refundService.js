@@ -25,14 +25,23 @@ async function processRefund(paymentId, type) {
             },
         });
         const refundData = response.data;
-        const refundMessage = type === "full"
-            ? "O reembolso integral foi processado com sucesso. O valor será estornado no seu método de pagamento dentro do prazo estabelecido pela operadora do cartão ou instituição bancária."
-            : `Um reembolso parcial de R$${refundAmount},00 foi realizado com sucesso. O valor será creditado no seu método de pagamento dentro do prazo estabelecido pela operadora do cartão ou instituição bancária.`;
-        console.log(`Reembolso ${type} realizado com sucesso:`, refundData);
+        // Função para formatar a mensagem
+        const refundMessage = (refundData) => {
+            return `✅ **Reembolso ${refundData.refund_mode === "standard" ? "integral" : "parcial"} realizado com sucesso!** 
+
+      📌 **Detalhes do Reembolso**:
+      - 💰 **Valor reembolsado**: R$ ${refundData.amount_refunded_to_payer.toFixed(2)}
+      - 📅 **Data do Reembolso**: ${new Date(refundData.date_created).toLocaleString("pt-BR")}
+      - 🆔 **ID do Reembolso**: ${refundData.id}
+      - 🔗 **ID do Pagamento**: ${refundData.payment_id}
+      - ✅ **Status**: ${refundData.status === "approved" ? "Aprovado" : refundData.status}
+
+      Se precisar de mais informações, entre em contato com o suporte.`;
+        };
         return {
             success: true,
-            refund: response.data,
-            message: refundMessage,
+            refund: refundData,
+            message: refundMessage(refundData),
         };
     }
     catch (error) {
