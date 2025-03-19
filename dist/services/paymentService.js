@@ -33,7 +33,7 @@ const createPaymentPreference = async (title, quantity, price, description) => {
                 },
             ],
             back_urls: {
-                success: "http://localhost:3000/payment-success",
+                success: "https://marcos-vinicius-barbearia.netlify.app/payment-success",
                 failure: "https://marcos-vinicius-barbearia.netlify.app/payment-failure",
                 pending: "https://marcos-vinicius-barbearia.netlify.app/payment-pending",
             },
