@@ -63,7 +63,7 @@ class CancelPaymentController {
                 data: { subscriptionDate: null, dueDate: null, status: false },
             });
             return reply.send({
-                message: "Assinatura cancelada com reembolso integral.",
+                message: `Assinatura cancelada com reembolso ${refundResponse.message}`,
                 refund: refundResponse.refund,
             });
         }

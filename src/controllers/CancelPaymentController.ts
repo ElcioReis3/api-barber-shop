@@ -76,7 +76,7 @@ export class CancelPaymentController {
       });
 
       return reply.send({
-        message: "Assinatura cancelada com reembolso integral.",
+        message: `Assinatura cancelada com reembolso ${refundResponse.message}`,
         refund: refundResponse.refund,
       });
     } catch (error) {
