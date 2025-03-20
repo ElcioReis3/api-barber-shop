@@ -27,14 +27,14 @@ async function processRefund(paymentId, type) {
         const refundData = response.data;
         // Função para formatar a mensagem
         const refundMessage = (refundData) => {
-            return `✅ **Reembolso ${refundData.refund_mode === "standard" ? "integral" : "parcial"} realizado com sucesso!** 
+            return `✅ **Reembolso ${refundData.refund_mode === "standard" ? "integral" : "parcial"} realizado com sucesso!**\n
 
-      📌 **Detalhes do Reembolso**:
-      - 💰 **Valor reembolsado**: R$ ${refundData.amount_refunded_to_payer.toFixed(2)}
-      - 📅 **Data do Reembolso**: ${new Date(refundData.date_created).toLocaleString("pt-BR")}
-      - 🆔 **ID do Reembolso**: ${refundData.id}
-      - 🔗 **ID do Pagamento**: ${refundData.payment_id}
-      - ✅ **Status**: ${refundData.status === "approved" ? "Aprovado" : refundData.status}
+      📌 **Detalhes do Reembolso**:\n
+      - 💰 **Valor reembolsado**: R$ ${refundData.amount_refunded_to_payer.toFixed(2)}\n
+      - 📅 **Data do Reembolso**: ${new Date(refundData.date_created).toLocaleString("pt-BR")}\n
+      - 🆔 **ID do Reembolso**: ${refundData.id}\n
+      - 🔗 **ID do Pagamento**: ${refundData.payment_id}\n
+      - ✅ **Status**: ${refundData.status === "approved" ? "Aprovado" : refundData.status}\n
 
       Se precisar de mais informações, entre em contato com o suporte.`;
         };

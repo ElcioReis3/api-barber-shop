@@ -34,20 +34,20 @@ export async function processRefund(
     const refundMessage = (refundData: any) => {
       return `✅ **Reembolso ${
         refundData.refund_mode === "standard" ? "integral" : "parcial"
-      } realizado com sucesso!** 
+      } realizado com sucesso!**\n
 
-      📌 **Detalhes do Reembolso**:
+      📌 **Detalhes do Reembolso**:\n
       - 💰 **Valor reembolsado**: R$ ${refundData.amount_refunded_to_payer.toFixed(
         2
-      )}
+      )}\n
       - 📅 **Data do Reembolso**: ${new Date(
         refundData.date_created
-      ).toLocaleString("pt-BR")}
-      - 🆔 **ID do Reembolso**: ${refundData.id}
-      - 🔗 **ID do Pagamento**: ${refundData.payment_id}
+      ).toLocaleString("pt-BR")}\n
+      - 🆔 **ID do Reembolso**: ${refundData.id}\n
+      - 🔗 **ID do Pagamento**: ${refundData.payment_id}\n
       - ✅ **Status**: ${
         refundData.status === "approved" ? "Aprovado" : refundData.status
-      }
+      }\n
 
       Se precisar de mais informações, entre em contato com o suporte.`;
     };
